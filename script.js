@@ -1,36 +1,38 @@
 console.log("Pomodoro!");
 
 let intervalId = null;
-let count = parseInt(document.getElementById("timer").innerHTML);
+let time_options = document.getElementById("time_options");
+let time_selection = parseInt(time_options.value);
+let count = time_selection;
+document.getElementById("timer").innerHTML = time_selection;
 
-function change() {
+function countDown() {
     if (count > 0) {
         count --;
         document.getElementById("timer").innerHTML = count;
-    }  else {
-        reset();
+        console.log(count);
     }
 }
 
 function reset() {
+    time_selection = parseInt(time_options.value);
+    count = time_selection;
+     document.getElementById("timer").innerHTML = count;
     if (intervalId != null) {
         clearInterval(intervalId);
         intervalId = null;
-        count = 10;
-        document.getElementById("timer").innerHTML = count;
-        console.log("reset")
     }
+    console.log("reset")
 }
 
-function updateCounter() {
-    console.log(count);
-    change();
-}
+time_options.addEventListener("change", () => {
+    reset();
+});
 
 const startButton = document.getElementById("startBtn");
 startButton.addEventListener("click", function() {
     if (intervalId === null) {
-        intervalId = setInterval(updateCounter, 1000);
+        intervalId = setInterval(countDown, 1000);
     }  
 });
 
@@ -38,3 +40,4 @@ const resetButton = document.getElementById("resetBtn");
 resetButton.addEventListener("click", function() {
     reset();
 });
+
