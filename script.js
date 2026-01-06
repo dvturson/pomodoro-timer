@@ -1,7 +1,7 @@
 console.log("Pomodoro!");
 
 let intervalId = null;
-let isStudying = true;
+let mode = "default";
 let studyTimeSelect = document.getElementById("study_options");
 let breakTimeSelect = document.getElementById("break_options");
 let initialDuration = parseInt(studyTimeSelect.value) * 60;
@@ -9,31 +9,54 @@ let timeLeft = initialDuration;
 reset();
 
 function countDown() {
-    console.log(isStudying);
+    console.log(mode);
     if (timeLeft > 0) {
         timeLeft --;
         document.getElementById("timer").innerHTML = formatTime();
         console.log(timeLeft);
     } else {
-        if (isStudying) {
-            isStudying = false;
+        if (mode === "study") {
+            mode = "break";
+            updateStatus();
             timeLeft = parseInt(breakTimeSelect.value) * 60;
         } else {
-             isStudying = true;
+            mode = "study";
+            updateStatus();
             timeLeft = parseInt(studyTimeSelect.value) * 60;
         }
     }
 }
 
 function reset() {
+    mode = "default";
     initialDuration = parseInt(studyTimeSelect.value) * 60;
     timeLeft = initialDuration;
-     document.getElementById("timer").innerHTML = formatTime();
+    document.getElementById("timer").innerHTML = formatTime();
     if (intervalId !== null) {
         clearInterval(intervalId);
         intervalId = null;
     }
+    updateStatus();
     console.log("reset")
+}
+
+function pause() {
+    clearInterval(intervalId)
+    intervalId = null;
+}
+
+function updateStatus() {
+    if (mode === "study") {
+        document.getElementById("status").innerHTML = "study";
+        document.body.style.backgroundColor = "#6f905eff";
+    } else if (mode === "break") {
+        document.getElementById("status").innerHTML = "break";
+        document.body.style.backgroundColor = "#bb8e8eff";
+    } else {
+        document.getElementById("status").innerHTML = "meow";
+        document.body.style.backgroundColor = "#9d9d9dff";
+
+    }
 }
 
 function formatTime() {
@@ -57,14 +80,22 @@ breakTimeSelect.addEventListener("change", () => {
     reset();
 });
 
-const startButton = document.getElementById("startBtn");
+const startButton = document.getElementById("startPauseBtn");
 startButton.addEventListener("click", function() {
     if (intervalId === null) {
-        intervalId = setInterval(countDown, 5);
-    }  
+        intervalId = setInterval(countDown, 10);
+        mode = "study";
+        updateStatus();
+        
+        startButton.innerHTML = "pause";
+    } else {
+        startButton.innerHTML = "resume";
+        pause();
+    }
 });
 
 const resetButton = document.getElementById("resetBtn");
 resetButton.addEventListener("click", function() {
+    startButton.innerHTML = "start";
     reset();
 });
