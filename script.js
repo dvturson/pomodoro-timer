@@ -15,6 +15,7 @@ function countDown() {
         document.getElementById("timer").innerHTML = formatTime();
         console.log(timeLeft);
     } else {
+        document.getElementById("alarmSound").play();
         if (mode === "study") {
             mode = "break";
             updateStatus();
@@ -83,7 +84,7 @@ breakTimeSelect.addEventListener("change", () => {
 const startButton = document.getElementById("startPauseBtn");
 startButton.addEventListener("click", function() {
     if (intervalId === null) {
-        intervalId = setInterval(countDown, 10);
+        intervalId = setInterval(countDown, 20);
         mode = "study";
         updateStatus();
         
