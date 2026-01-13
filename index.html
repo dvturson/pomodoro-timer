@@ -4,26 +4,32 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Pomodoro Timer</title>
+        <title id="title">Pomodoro Timer</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="container">
-            <h1 id="status">meow</h1>
+            <h1 id="status"></h1>
             <h1 id="timer"></h1>
             <div class="settings">
                 <select name="study_options" id="study_options">
                     <option value="1">1</option>
-                    <option value="15">15</option>
+                    <option value="20">20</option>
                     <option value="35">35</option>
                 </select>
-                <select name="break_options" id="break_options">
+                <select name="sBreak_options" id="sBreak_options">
                     <option value="1">1</option>
                     <option value="5">5</option>
                     <option value="7">7</option>
                 </select>
-                <button id="startPauseBtn" type="button">start</button>
+                <select name="lBreak_options" id="lBreak_options">
+                    <option value="1">1</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                
             </div>
+            <button id="startPauseBtn" type="button">start</button>
             <button id="resetBtn" type="button">reset</button>
         </div>
 

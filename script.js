@@ -6,7 +6,9 @@ const resetButton = document.getElementById("resetBtn");
 let intervalId = null;
 let mode = "default";
 let studyTimeSelect = document.getElementById("study_options");
-let breakTimeSelect = document.getElementById("break_options");
+let sBreakTimeSelect = document.getElementById("sBreak_options");
+let lBreakTimeSelect = document.getElementById("lBreak_options");
+let sBreakCount = 0;
 let initialDuration = parseInt(studyTimeSelect.value) * 60;
 let timeLeft = initialDuration;
 reset();
@@ -16,13 +18,22 @@ function countDown() {
     if (timeLeft > 0) {
         timeLeft --;
         document.getElementById("timer").innerHTML = formatTime();
-        console.log(timeLeft);
+        document.getElementById("title").innerHTML = formatTime();
+        // console.log(timeLeft);
     } else {
         document.getElementById("alarmSound").play();
         if (mode === "study") {
             mode = "break";
             updateStatus();
-            timeLeft = parseInt(breakTimeSelect.value) * 60;
+            if (sBreakCount < 3) {
+                sBreakCount ++;
+                timeLeft = parseInt(sBreakTimeSelect.value) * 60;
+            }
+            if (sBreakCount == 3) {
+                sBreakCount = 0;
+                timeLeft = parseInt(lBreakTimeSelect.value) * 60;
+            }
+            
         } else {
             mode = "study";
             updateStatus();
@@ -37,6 +48,7 @@ function reset() {
     initialDuration = parseInt(studyTimeSelect.value) * 60;
     timeLeft = initialDuration;
     document.getElementById("timer").innerHTML = formatTime();
+    document.getElementById("title").innerHTML = "Pomodoro Timer";
     if (intervalId !== null) {
         clearInterval(intervalId);
         intervalId = null;
@@ -58,7 +70,7 @@ function updateStatus() {
         document.getElementById("status").innerHTML = "break";
         document.body.style.backgroundColor = "rgba(111, 144, 94, 1)";
     } else {
-        document.getElementById("status").innerHTML = "meow";
+        document.getElementById("status").innerHTML = "Pomodoro";
         document.body.style.backgroundColor = "rgba(166, 151, 129, 1)";
 
     }
@@ -81,14 +93,17 @@ function formatTime() {
 studyTimeSelect.addEventListener("change", () => {
     reset();
 });
-breakTimeSelect.addEventListener("change", () => {
+sBreakTimeSelect.addEventListener("change", () => {
+    reset();
+});
+lBreakTimeSelect.addEventListener("change", () => {
     reset();
 });
 
 
 startButton.addEventListener("click", function() {
     if (intervalId === null) {
-        intervalId = setInterval(countDown, 50);
+        intervalId = setInterval(countDown, 1000);
         mode = "study";
         updateStatus();
         
