@@ -44,6 +44,7 @@ function countDown() {
 
 function reset() {
     mode = "default";
+    sBreakCount = 0;
     startButton.innerHTML = "start";
     initialDuration = parseInt(studyTimeSelect.value) * 60;
     timeLeft = initialDuration;
@@ -54,7 +55,7 @@ function reset() {
         intervalId = null;
     }
     updateStatus();
-    console.log("reset")
+    console.log("reset");
 }
 
 function pause() {
@@ -103,8 +104,10 @@ lBreakTimeSelect.addEventListener("change", () => {
 
 startButton.addEventListener("click", function() {
     if (intervalId === null) {
-        intervalId = setInterval(countDown, 1000);
-        mode = "study";
+        intervalId = setInterval(countDown, 10);
+        if (mode === "default") {
+            mode = "study";
+        }
         updateStatus();
         
         startButton.innerHTML = "pause";
