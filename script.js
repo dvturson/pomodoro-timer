@@ -104,7 +104,7 @@ lBreakTimeSelect.addEventListener("change", () => {
 
 startButton.addEventListener("click", function() {
     if (intervalId === null) {
-        intervalId = setInterval(countDown, 10);
+        intervalId = setInterval(countDown, 1000);
         if (mode === "default") {
             mode = "study";
         }
