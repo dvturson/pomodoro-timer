@@ -1,9 +1,28 @@
+html {
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
 body {
     background-color: rgba(166, 151, 129);
     transition: background-color .3s ease, transform 0.2s ease;
 }
 
-.container {
+#sky {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.cloud {
+    height: 50px;
+    width: 100px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+}
+
+#content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,10 +36,13 @@ body {
     border-radius: 25px;
     box-shadow: 0 44px 15px rgba(0, 0, 0, 0.2);
 
-    background-color: rgbA(255, 255, 255, 0.2);;
+    position: relative;
+    z-index: 1;
+
+    background-color: rgba(255, 255, 255, 0.2);;
 }
 
-.settings {
+#settings {
     display: flex;
     flex-direction: row;
     justify-content: center;
