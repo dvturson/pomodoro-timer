@@ -8,22 +8,20 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="container">
+        <div id="sky"></div>
+        <div id="content">
             <h1 id="status"></h1>
             <h1 id="timer"></h1>
-            <div class="settings">
+            <div id="settings">
                 <select name="study_options" id="study_options">
-                    <option value="1">1</option>
-                    <option value="20">20</option>
                     <option value="35">35</option>
+                    <option value="20">20</option>
                 </select>
                 <select name="sBreak_options" id="sBreak_options">
-                    <option value="1">1</option>
                     <option value="5">5</option>
                     <option value="7">7</option>
                 </select>
                 <select name="lBreak_options" id="lBreak_options">
-                    <option value="1">1</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
                 </select>
@@ -35,5 +33,6 @@
 
         <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
         <script src="script.js"></script>
+        <script src="cloud_script.js"></script>
     </body>
 </html>
