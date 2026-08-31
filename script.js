@@ -64,16 +64,16 @@ function pause() {
 }
 
 function updateStatus() {
+    const statusEl = document.getElementById("status");
     if (mode === "study") {
-        document.getElementById("status").innerHTML = "study";
-        document.body.style.backgroundColor = "rgba(187, 142, 142, 1)";
+        statusEl.textContent = "study";
+        statusEl.className = "study";
     } else if (mode === "break") {
-        document.getElementById("status").innerHTML = "break";
-        document.body.style.backgroundColor = "rgba(111, 144, 94, 1)";
+        statusEl.textContent = "break";
+        statusEl.className = "break";
     } else {
-        document.getElementById("status").innerHTML = "Pomodoro";
-        document.body.style.backgroundColor = "rgba(166, 151, 129, 1)";
-
+        statusEl.textContent = "pomodoro";
+        statusEl.className = "";
     }
 }
 
